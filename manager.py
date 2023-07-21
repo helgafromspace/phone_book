@@ -14,9 +14,9 @@ def update(dataset:dict):
                 else:
                     dataset[phone][key] = user_value
             else:
-                user_info = input(f'Бажаєте додати {value}? Напишіть так, якщо потрібно додати, або Enter щоб пропустити\n')
-                if user_info == 'так':
-                    dataset[phone][key] = input(f'Введіть {value}: ')
+                user_info = input(f'Бажаєте додати {value}? Напишіть {value}, якщо потрібно додати, або натисніть Enter щоб пропустити\n')
+                if user_info:
+                    dataset[phone][key] = user_info
                 else:
                     continue
     else:
