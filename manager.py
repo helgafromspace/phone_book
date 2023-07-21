@@ -6,7 +6,7 @@ def create(dataset: dict, data: dict):
 def update(dataset:dict):
     phone = input('Введіть номер телефону: ')
     if phone in dataset:
-        for key, value in zip (keys, values):
+        for key, value in zip(keys, values):
             if dataset[phone][key]:
                 user_value = input(f'Введіть {value}: ')
                 if user_value == '':
@@ -23,8 +23,15 @@ def update(dataset:dict):
         print('Номер відстуній в книжці')
     return dataset
 
-def delete():
-    pass
+def delete(dataset):
+    phone = input('Введіть номер телефону: ')
+    deleted_value = dataset[phone]
+    if phone in dataset:
+        del dataset[phone]
+    else:
+        print('Номер відсутній у книжці')
+    return dataset
+
 
 if __name__ == '__main__':
     pass
@@ -52,6 +59,8 @@ if __name__ == '__main__':
     # create(dataset, user_olya)
     # create(dataset, user_sam)
     # print(dataset)
+    # delete(dataset)
+    # print (dataset)
     # # update(dataset)
     # # print(dataset)
-    # write_dataset(dataset, filepath)
+    # # write_dataset(dataset, filepath)

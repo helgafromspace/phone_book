@@ -31,7 +31,7 @@ def main(file_path):
         elif command == 'up':
             update(dataset)
         elif command == 'del':
-            pass
+            delete(dataset)
         elif command == 'help':
             print_commands()
         elif command == 'exit':
