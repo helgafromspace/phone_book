@@ -1,6 +1,6 @@
 from file import read_dataset, write_dataset
-from helper import print_commands, print_result, read_values, keys, values
-from manager import create, update, delete
+from helper import print_commands, print_result, read_values, print_all_values
+from manager import create, update, delete,restore_deleted_values
 from search import search_record
 
 
@@ -17,21 +17,35 @@ def main(file_path):
             result = search_record(dataset, command, value)
             print_result(result)
         elif command == 'sl':
-            pass
+            value = input('Введіть прізвище: ')
+            result = search_record(dataset, command, value)
+            print_result(result)
         elif command == 'sfl':
-            pass
+            value = input('Введіть ім\'я: ') + ' ' + input('Введіть прізвище: ')
+            value = value.split(' ')
+            result = search_record(dataset, command, value)
+            print_result(result)
         elif command == 'sp':
             value = input('Введіть номер телефону: ')
             result = search_record(dataset, command, value)
             print_result(result)
         elif command == 'sct':
-            pass
+            value = input('Введіть місто: ')
+            result = search_record(dataset, command, value)
+            print_result(result)
         elif command == 'sc':
-            pass
+            value = input('Введіть країну: ')
+            result = search_record(dataset, command, value)
+            print_result(result)
         elif command == 'up':
             update(dataset)
         elif command == 'del':
             delete(dataset)
+        elif command == 'rdv':
+            restore_deleted_values(dataset)
+            print('Deleted values from current session are restored')
+        elif command == 'printall':
+            print_all_values(dataset)
         elif command == 'help':
             print_commands()
         elif command == 'exit':

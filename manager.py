@@ -1,4 +1,6 @@
-from helper import read_values, keys, values
+from helper import read_values, keys, values, print_result
+
+deleted_values = []
 def create(dataset: dict, data: dict):
     dataset.update(data)
     return dataset
@@ -7,8 +9,10 @@ def update(dataset:dict):
     phone = input('Введіть номер телефону: ')
     if phone in dataset:
         for key, value in zip(keys, values):
+            if value == 'країна':
+                value = 'країну'
             if dataset[phone][key]:
-                user_value = input(f'Введіть {value}: ')
+                user_value = input(f'Оновіть {value} або натисніть Enter, щоб залишити поле без змін: ')
                 if user_value == '':
                     continue
                 else:
@@ -25,12 +29,19 @@ def update(dataset:dict):
 
 def delete(dataset):
     phone = input('Введіть номер телефону: ')
-    deleted_value = dataset[phone]
     if phone in dataset:
+        deleted_value = {phone: dataset[phone]}
         del dataset[phone]
+        print('Видалено запис:')
+        print_result(deleted_value)
+        deleted_values.append(deleted_value)
     else:
         print('Номер відсутній у книжці')
     return dataset
+
+def restore_deleted_values(dataset):
+    for value in deleted_values:
+        create(dataset, value)
 
 
 if __name__ == '__main__':
