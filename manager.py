@@ -12,7 +12,7 @@ def update(dataset:dict):
             if value == 'країна':
                 value = 'країну'
             if dataset[phone][key]:
-                user_value = input(f'Оновіть {value} або натисніть Enter, щоб залишити поле без змін: ')
+                user_value = input(f'Оновіть {value} або натисніть Enter, щоб залишити {value} {dataset[phone][key]}\n')
                 if user_value == '':
                     continue
                 else:
