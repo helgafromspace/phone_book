@@ -5,8 +5,8 @@ from search import search_record
 
 
 def main(file_path):
-    print_commands()
     dataset = read_dataset(file_path)
+    print_commands()
     while True:
         command = input('Введіть команду зі списку: ')
         if command == 'new':
@@ -56,4 +56,8 @@ def main(file_path):
 
 
 if __name__ == '__main__':
-    main('database/database.json')
+    filepath = 'database/database.json'
+    try:
+        main(filepath)
+    except FileNotFoundError:
+        print('File not found. Please, check filepath validity')
