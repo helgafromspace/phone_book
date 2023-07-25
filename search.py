@@ -11,27 +11,27 @@ def search_record(dataset, search_type, value):  # value - is part or full numbe
                 result.update({phone: dataset[phone]})
     elif search_type == 'sf':
         for phone, data in dataset.items():
-            if value in data['first_name']:
+            if data['first_name'].lower().startswith(value.lower()):
                 count += 1
                 result.update({phone: dataset[phone]})
     elif search_type == 'sl':
         for phone, data in dataset.items():
-            if value in data['last_name']:
+            if data['last_name'].lower().startswith(value.lower()):
                 count += 1
                 result.update({phone: dataset[phone]})
     elif search_type == 'sfl':
         for phone, data in dataset.items():
-            if value[0] in data['first_name'] and value[1] in data['last_name']:
+            if data['first_name'].lower().startswith(value[0].lower()) and data['last_name'].lower().startswith(value[1].lower()):
                 count += 1
                 result.update({phone: dataset[phone]})
     elif search_type == 'sct':
         for phone, data in dataset.items():
-            if value in data['city']:
+            if data['city'].lower().startswith(value.lower()):
                 count += 1
                 result.update({phone: dataset[phone]})
     elif search_type == 'sc':
         for phone, data in dataset.items():
-            if value in data['country']:
+            if data['country'].lower().startswith(value.lower()):
                 count += 1
                 result.update({phone: dataset[phone]})
     if count == 0:
