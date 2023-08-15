@@ -57,6 +57,16 @@ class CreateUpdateDeleteUser(TestCase):
             update(self.dataset)
         self.assertEqual(self.dataset[self.phone]['country'], new_country)
 
+
+    def test_fail_update_with_incorrect_number(self):
+        new_fname = 'Luke'
+        phone = '111235'
+        input_list = [phone, new_fname, '', '', '']
+        inputs = iter(input_list)
+        with patch("builtins.input", side_effect=inputs):
+            err = update(self.dataset)
+        self.assertEqual(err, 'Номер відстуній в книжці')
+
     def tearDown(self) -> None:
         write_dataset(self.dataset, self.filepath)
 

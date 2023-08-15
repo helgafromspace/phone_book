@@ -25,6 +25,7 @@ def update(dataset:dict):
                     continue
     else:
         print('Номер відстуній в книжці')
+        return 'Номер відстуній в книжці'# need return statement for test
     return dataset
 
 def delete(dataset):
