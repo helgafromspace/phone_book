@@ -105,6 +105,13 @@ class SearchUser(TestCase):
             self.assertEqual(self.phone, *result.keys())
             self.assertEqual(self.first_name, result[self.phone]['first_name'])
 
+    def test_search_by_name_not_from_dataset(self):
+        command = 'sf'
+        fname = 'Jill'
+        with patch("builtins.input", return_value=fname):
+            result = search_record(self.dataset, command, fname)
+        self.assertEqual(result, {})
+
     def test_search_by_last_name(self):
         command = 'sl'
         with patch("builtins.input", return_value=self.last_name):
@@ -112,7 +119,7 @@ class SearchUser(TestCase):
             self.assertEqual(self.phone, *result.keys())
             self.assertEqual(self.last_name, result[self.phone]['last_name'])
 
-    def test_search_by__first_and_last_name(self):
+    def test_search_by_first_and_last_name(self):
         command = 'sfl'
         input_list = [self.first_name, self.last_name]
         inputs = iter(input_list)
@@ -141,7 +148,6 @@ class SearchUser(TestCase):
             result = search_record(self.dataset, command, self.country)
             self.assertEqual(self.phone, *result.keys())
             self.assertEqual(self.country, result[self.phone]['country'])
-
 
 
 
