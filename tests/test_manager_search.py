@@ -112,6 +112,36 @@ class SearchUser(TestCase):
             self.assertEqual(self.phone, *result.keys())
             self.assertEqual(self.last_name, result[self.phone]['last_name'])
 
+    def test_search_by__first_and_last_name(self):
+        command = 'sfl'
+        input_list = [self.first_name, self.last_name]
+        inputs = iter(input_list)
+        with patch("builtins.input", side_effect=inputs):
+            result = search_record(self.dataset, command, (self.first_name + ' ' + self.last_name).split(' '))
+            self.assertEqual(self.phone, *result.keys())
+            self.assertEqual(self.last_name, result[self.phone]['last_name'])
+            self.assertEqual(self.first_name,result[self.phone]['first_name'])
+
+    def test_search_by_phone(self):
+        command = 'sp'
+        with patch("builtins.input", return_value=self.phone):
+            result = search_record(self.dataset, command, self.phone)
+            self.assertEqual(self.phone, *result.keys())
+
+    def test_search_by_city(self):
+        command = 'sct'
+        with patch("builtins.input", return_value=self.city):
+            result = search_record(self.dataset, command, self.city)
+            self.assertEqual(self.phone, *result.keys())
+            self.assertEqual(self.city, result[self.phone]['city'])
+
+    def test_search_by_country(self):
+        command = 'sc'
+        with patch("builtins.input", return_value=self.country):
+            result = search_record(self.dataset, command, self.country)
+            self.assertEqual(self.phone, *result.keys())
+            self.assertEqual(self.country, result[self.phone]['country'])
+
 
 
 
