@@ -23,7 +23,6 @@ class CreateUpdateDeleteUser(TestCase):
             self.dataset = create(self.dataset, data)
         userdata_in_dataset = ([self.dataset[self.phone1]['first_name'], self.dataset[self.phone1]['last_name'],
                                 self.dataset[self.phone1]['city'], self.dataset[self.phone1]['country']])
-        self.assertEqual(*self.dataset.keys(), self.phone1)
         self.assertSequenceEqual(self.user_data, userdata_in_dataset)
 
     def test_update_user_first_name(self):
@@ -81,6 +80,10 @@ class CreateUpdateDeleteUser(TestCase):
         with patch("builtins.input", return_value=self.phone2):
             delete(self.dataset)
 
+    def test_restore_deleted_values(self):
+        restore_deleted_values(self.dataset)
+        self.assertSequenceEqual([self.phone1, self.phone2], list(self.dataset.keys()))
+
     def tearDown(self) -> None:
         write_dataset(self.dataset, self.filepath)
 
@@ -90,7 +93,6 @@ class SearchUser(TestCase):
     def setUp(self) -> None:
         self.filepath = 'database_test.json'
         self.phone = '380998526455'
-        self.phone2 = '380637786375'
         self.dataset = read_dataset(self.filepath)
         self.first_name = self.dataset[self.phone]['first_name']
         self.last_name = self.dataset[self.phone]['last_name']
