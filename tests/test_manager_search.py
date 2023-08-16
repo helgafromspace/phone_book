@@ -76,16 +76,44 @@ class CreateUpdateDeleteUser(TestCase):
         with patch("builtins.input", side_effect=inputs):
             data = read_values()
             create(self.dataset, data)
-        userdata_in_dataset = ([self.dataset[self.phone2]['first_name'], self.dataset[self.phone2]['last_name'],
-                                self.dataset[self.phone2]['city'], self.dataset[self.phone2]['country']])
+
     def test_delete_user(self):
         self.create_second_user()
         with patch("builtins.input", return_value=self.phone2):
             delete(self.dataset)
 
-
     def tearDown(self) -> None:
         write_dataset(self.dataset, self.filepath)
+
+
+class SearchUser(TestCase):
+
+    def setUp(self) -> None:
+        self.filepath = 'database_test.json'
+        self.phone = '380998526455'
+        self.dataset = read_dataset(self.filepath)
+        self.first_name = self.dataset[self.phone]['first_name']
+        self.last_name = self.dataset[self.phone]['last_name']
+        self.city = self.dataset[self.phone]['city']
+        self.country = self.dataset[self.phone]['country']
+        self.user_data = ['Jack', 'King', 'Monreal', 'Canada']
+
+    def test_search_by_first_name(self):
+        command = 'sf'
+        with patch("builtins.input", return_value=self.first_name):
+            result = search_record(self.dataset, command, self.first_name)
+            self.assertEqual(self.phone, *result.keys())
+            self.assertEqual(self.first_name, result[self.phone]['first_name'])
+
+    def test_search_by_last_name(self):
+        command = 'sl'
+        with patch("builtins.input", return_value=self.last_name):
+            result = search_record(self.dataset, command, self.last_name)
+            self.assertEqual(self.phone, *result.keys())
+            self.assertEqual(self.last_name, result[self.phone]['last_name'])
+
+
+
 
 
 if __name__ == "__main__":
