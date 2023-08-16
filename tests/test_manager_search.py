@@ -1,10 +1,9 @@
 import unittest
 from unittest import TestCase
 from file import read_dataset, write_dataset
-from helper import print_commands,print_result,read_values,print_all_values,keys,values
-from manager import create, update, delete,restore_deleted_values
+from helper import print_commands, print_result, read_values, print_all_values
+from manager import create, update, delete, restore_deleted_values
 from search import search_record
-from main import main
 from unittest.mock import patch
 class CreateUpdateDeleteUser(TestCase):
 
