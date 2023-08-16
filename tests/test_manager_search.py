@@ -91,12 +91,12 @@ class SearchUser(TestCase):
     def setUp(self) -> None:
         self.filepath = 'database_test.json'
         self.phone = '380998526455'
+        self.phone2 = '380637786375'
         self.dataset = read_dataset(self.filepath)
         self.first_name = self.dataset[self.phone]['first_name']
         self.last_name = self.dataset[self.phone]['last_name']
         self.city = self.dataset[self.phone]['city']
         self.country = self.dataset[self.phone]['country']
-        self.user_data = ['Jack', 'King', 'Monreal', 'Canada']
 
     def test_search_by_first_name(self):
         command = 'sf'
